@@ -11,15 +11,15 @@ public class PlayerController : MonoBehaviour {
 
     void Update() {
         if(Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.LeftArrow)) {
-            this.MoveX(Vector3.left, MOVE_AMOUNT);
+            this.Move(Vector3.left, MOVE_AMOUNT);
         }
         else if(Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.RightArrow)) {
-            this.MoveX(Vector3.right, MOVE_AMOUNT);
+            this.Move(Vector3.right, MOVE_AMOUNT);
         }
 
         if(Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.UpArrow)) {
             if(this.IsOnGround()) {
-                this.MoveY(this.transform.up, JUMP_AMOUNT);
+                this.AddForce(Vector3.up, JUMP_AMOUNT);
             }   
         }
     }
@@ -29,11 +29,11 @@ public class PlayerController : MonoBehaviour {
     // }
 
     // MARK: - Position Update
-    private void MoveX(Vector3 position, float amount) {
-        this.gameObject.transform.position += position * amount * Time.deltaTime;
+    private void Move(Vector3 direction, float amount) {
+        this.gameObject.transform.position += direction * amount * Time.deltaTime;
     }
 
-    private void MoveY(Vector3 direction, float amount) {
+    private void AddForce(Vector3 direction, float amount) {
         this.gameObject.GetComponent<Rigidbody2D>().AddForce(direction * amount * 100);
     }
 
